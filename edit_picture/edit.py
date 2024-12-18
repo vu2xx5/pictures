@@ -3,12 +3,19 @@ import cv2
 import streamlit as st
 
 class Edit:
-    def __init__(self, image: np.ndarray):
+    def __init__(self, image: np.ndarray) -> np.ndarray:
         self.image = image
 
-
     def rotate_image(self, angle = int) -> np.ndarray:
-        # Xoay ảnh 
+        '''
+            This function rotates the image
+            
+            Args:
+                angle: angle of rotation in degrees
+
+            Retrurn:
+                image is rotated
+        ''' 
         if angle == 90:
             return cv2.rotate(self.image, cv2.ROTATE_90_CLOCKWISE)
         elif angle == 180:
@@ -18,14 +25,26 @@ class Edit:
         else:
             return self.image
 
-
     def brightness_image(self, brightness: float) -> np.ndarray:
-        # Điều chỉnh độ sáng của ảnh
+        '''
+            This function brightness the image
+
+            Args:
+                brightness: brightness of image
+            Returns:
+                image is brightened
+        '''
         brightness_img = cv2.convertScaleAbs(self.image, alpha=brightness, beta=0)
-        return brightness_img
-    
+        return brightness_img 
 
     def blur_image(self, ksize: int = 5) -> np.ndarray:
-        # Làm mờ ảnh bằng bộ lọc trung vị
-        blurred_img = cv2.medianBlur(self.image, ksize)
+        '''
+            This function blurs the image
+
+            Args:
+                ksize: kernel size for blurring
+            Returns:
+                image is blurred
+        '''
+        blurred_img = cv2.GaussianBlur(self.image, (ksize, ksize), 0)
         return blurred_img
